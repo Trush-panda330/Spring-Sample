@@ -32,7 +32,7 @@ public class User {
 	@Column(name = "update_date")
 	private Date updateDate;
 	
-	private Date create_Date;
+	private Date createDate;
 	
 	private Date deleteDate;
 	

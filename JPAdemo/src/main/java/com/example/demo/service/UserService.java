@@ -17,6 +17,8 @@ public class UserService {
 	
 	// 全てのUserエンティティを取得するメソッド
 	public List<User> searchAll() {
+		List<User> users = userRepository.findAll();
+	    System.out.println(users); // ここでユーザー情報をコンソールに出力
 		// UserRepositoryのfindAllメソッドを呼び出して全てのUserを取得
 		return userRepository.findAll();
 	}
