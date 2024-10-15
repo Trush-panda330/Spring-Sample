@@ -1,0 +1,49 @@
+/* style.css */
+
+/* 全体のスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffcc99;
+    text-align: center;
+    font-size: 2.2em;
+}
+
+/* テーブルのスタイル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #ffcc99;
+    color: white;
+}
+
+td {
+    background-color: #f2f2f2;
+}
+
+/* センタリング用 */
+.center {
+    text-align: center;
+}
+
+/* ホバー時のスタイル */
+tr:hover {
+    background-color: #ffe5cc;
+}
