@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UserUpdateRequest implements Serializable {
+public class UserUpdateRequest extends UserAddRequest implements Serializable {
 	
 	@NotNull
 	private Long id;
