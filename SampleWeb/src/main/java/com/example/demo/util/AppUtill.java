@@ -13,6 +13,13 @@ public class AppUtill {
 	 * 第2引数：
 	 * 第3引数：
 	 * */
+	/**
+	 * 
+	 * @param messageSource メッセージソース
+	 * @param key メッセージキー
+	 * @param params 置換文字群
+	 * @return メッセージ
+	 */
 	public static String getMessage(MessageSource messageSource, String key, Object... params) {
 		return messageSource.getMessage(key, params,Locale.JAPAN);
 	}
