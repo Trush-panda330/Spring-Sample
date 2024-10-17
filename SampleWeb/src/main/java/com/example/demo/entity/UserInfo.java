@@ -6,15 +6,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * ユーザー情報テーブル Entity
+ */
 @Entity
 @Data
 @Table(name="user_info")
 public class UserInfo {
 	
+	/** ログインID*/
 	@Id
 	@Column(name="login_id")
 	private String roginId;
 	
+	/**パスワード*/
 	private String password;
 
 }
