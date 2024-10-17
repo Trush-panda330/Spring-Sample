@@ -17,7 +17,7 @@ public class UserInfo {
 	/** ログインID*/
 	@Id
 	@Column(name="login_id")
-	private String roginId;
+	private String loginId;
 	
 	/**パスワード*/
 	private String password;
