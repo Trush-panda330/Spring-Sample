@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.constant.MessageConst;
+import com.example.demo.constant.SignupMessage;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.SignupService;
@@ -48,13 +50,19 @@ public class SignupController {
 	 * login認証をしてメニュー画面に遷移する
 	 * @Model model 
 	 * @param LoginForm  form 入力情報
+	 * @param bdResult 入力チェック結果
 	 * @return 表示画面
 	 * */
 	@PostMapping("/signup")
-	public void signup(SignupForm form, Model model) {
+	public void signup(SignupForm form,@Validated  Model model ,BindingResult bdResult) {
+		if(bdResult.hasErrors()) {
+			return;
+		}
 		var userInfoOpt = service.resistUserInfo(form);
-		var message = AppUtill.getMessage(messageSource, judgeMessageKey(userInfoOpt));
-		model.addAttribute("message", message);
+		var signupMessage = judgeMessageKey(userInfoOpt);
+		var messageId = AppUtill.getMessage(messageSource, signupMessage.getMessageId());
+		model.addAttribute("message", messageId);
+		model.addAttribute("isError" ,signupMessage.isError());
 	}
 
 	
@@ -64,11 +72,11 @@ public class SignupController {
 	 * @param userInfoOpt
 	 * @return
 	 */
-	private String judgeMessageKey(Optional<UserInfo> userInfoOpt) {
+	private SignupMessage judgeMessageKey(Optional<UserInfo> userInfoOpt) {
 		if (userInfoOpt.isEmpty()) { // userInfoがなかった場合(isEmpty)処理は成功するので
-			return MessageConst.SIGNUP_EXISTED_LOGIN_ID;
+			return SignupMessage.EXISTED_LOGIN_ID;
 		} else {
-			return MessageConst.SIGNUP_RESIST_SUCCEED;
+			return SignupMessage.SUCCEED;
 		}
 	}
 }
