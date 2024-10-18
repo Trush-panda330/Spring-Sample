@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.constant.ErrorMessageConst;
+import com.example.demo.constant.MessageConst;
 import com.example.demo.form.LoginForm;
 import com.example.demo.service.LoginService;
 import com.example.demo.util.AppUtill;
@@ -65,7 +65,7 @@ public class LoginController {
 		// ユーザーとパスワードの組み合わせが合わない時
 		} else {
 			//TODO エラーメッセージはプロパティファイルで管理する
-			var errorMsg = AppUtill.getMessage(messageSource,ErrorMessageConst.LOGIN_WRONG_INPUT);
+			var errorMsg = AppUtill.getMessage(messageSource,MessageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsg);
 			return "login";
 		}
