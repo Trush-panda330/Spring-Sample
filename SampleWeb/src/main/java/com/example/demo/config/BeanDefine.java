@@ -12,7 +12,7 @@ public class BeanDefine {
 
 	/*
 	 * @Configurationとセットで@Beanを付与したメソッドはDIコンテナに登録され
-	 * DI注入(@RequiredArgsConstructor配下でprivate finalしてインスタンス化)
+	 * DI注入(@RequiredArgsConstructorを付けてprivate finalしてインスタンス化)
 	 * することができる*/
 	@Bean
 	PasswordEncoder passwordEncoder() {
