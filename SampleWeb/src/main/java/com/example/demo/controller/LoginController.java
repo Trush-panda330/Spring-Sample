@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.context.MessageSource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.constant.MessageConst;
+import com.example.demo.constant.UrlConst;
 import com.example.demo.form.LoginForm;
 import com.example.demo.service.LoginService;
 import com.example.demo.util.AppUtill;
@@ -27,7 +27,7 @@ public class LoginController {
 	private final LoginService service;
 	
 	/** PasswordEncoder*/
-	private final  PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	private final  PasswordEncoder passwordEncoder;
 	
 	/** メッセージソース*/
 	private final MessageSource messageSource;
@@ -39,7 +39,7 @@ public class LoginController {
 	 *  @param form 入力情報
 	 *  @return 表示画面
 	 */
-	@GetMapping("/login")
+	@GetMapping(UrlConst.LOGIN)
 	public String displayLogin(@ModelAttribute LoginForm form) {
 		return "login";
 	}
@@ -52,7 +52,7 @@ public class LoginController {
 	 * @param LoginForm  form 入力情報
 	 * @return 表示画面
 	 * */
-	@PostMapping("/login")
+	@PostMapping(UrlConst.LOGIN)
 	public String login(LoginForm form, Model model) {
 		var userInfo = service.searchUserById(form.getLoginId());
 		//　パスワードはハッシュ化したものを使用する
@@ -61,14 +61,14 @@ public class LoginController {
 				//引数2にデータベースのuserInfoのハッシュ化されたパス
 				passwordEncoder.matches(form.getPassword(), userInfo.get().getPassword());
 		// パスワード認証で分岐trueの時
-		if (isCorrectUserAuth) {
+		if (isCorrectUserAuth) { 
 			return "redirect:/menu";
 		// ユーザーとパスワードの組み合わせが合わない時
 		} else {
 			//エラーメッセージはプロパティファイルで管理する
 			var errorMsg = AppUtill.getMessage(messageSource,MessageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsg);
-			return "login";
+			return "/login";
 		}
 	}
 }
