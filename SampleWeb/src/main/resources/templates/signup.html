@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>ユーザー登録画面</title>
 </head>
+
 <body>
 	<div th:insert="~{common/sourceList::sourceList}"></div>
 	<div th:replace="~{common/messageIcon::messageIcon}"></div>
@@ -14,7 +15,7 @@
 			role="alert" th:if="${message != null}">
 			<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
 				<use xlink:href="#exclamation-triangle-fill" th:if="${isError}" />
-				<use  xlink:href="#info-fill" th:unless="${isError}" />
+				<use xlink:href="#info-fill" th:unless="${isError}" />
 			</svg>
 			<span th:text="${message}"></span>
 		</div>
@@ -25,10 +26,13 @@
 					<p><label for="loginId">ログインID：</label>
 						<input class="form-control" type="text" th:field="*{loginId}">
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
+
 				<div class="col-3 col-md-2 col-xxl-1">
 					<p><label for="password">パスワード：</label>
 						<input class="form-control" type="password" th:field="*{password}">
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 			</div>
 			<p><input class="btn btn-primary" type="submit" value="ユーザー登録">
 		</form>
