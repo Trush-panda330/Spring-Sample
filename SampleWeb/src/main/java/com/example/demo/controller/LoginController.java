@@ -44,6 +44,11 @@ public class LoginController {
 		return "login";
 	}
 	
+	@GetMapping(value = UrlConst.LOGIN, params="error")
+	public String viewWithError(Model model, LoginForm form) {
+		return "login";
+	}
+	
 	/**
 	 * ログイン
 	 * 
