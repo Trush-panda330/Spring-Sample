@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SignupMessage;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.form.SignupForm;
@@ -54,17 +55,34 @@ public class SignupController {
 	 * @return 表示画面
 	 * */
 	@PostMapping("/signup")
-	public void signup(SignupForm form,@Validated  Model model ,BindingResult bdResult) {
-		if(bdResult.hasErrors()) {
-			return;
+	public void signup(Model model, @Validated SignupForm form, BindingResult result) {
+		if(result.hasErrors()) {
+//			var message = AppUtill.getMessage(messageSource, MessageConst.FROM_ERROR);
+//			model.addAttribute("messeage" ,message);
+//			model.addAttribute("isError" , true);
+			editGuideMessage(model, MessageConst.FROM_ERROR, true);
+			return ;
 		}
 		var userInfoOpt = service.resistUserInfo(form);
 		var signupMessage = judgeMessageKey(userInfoOpt);
-		var messageId = AppUtill.getMessage(messageSource, signupMessage.getMessageId());
-		model.addAttribute("message", messageId);
-		model.addAttribute("isError" ,signupMessage.isError());
+//		var messageId = AppUtill.getMessage(messageSource, signupMessage.getMessageId());
+//		model.addAttribute("message", messageId);
+//		model.addAttribute("isError" ,signupMessage.isError());
+		editGuideMessage(model, signupMessage.getMessageId(), signupMessage.isError());
 	}
 
+	/**
+	 * 画面に表示するガイドメッセージを設定する
+	 * 
+	 * @param model モデル
+	 * @param messageId メッセージID
+	 * @param isError エラー有無
+	 */
+	private void editGuideMessage(Model model, String messageId, boolean isError) {
+		var message = AppUtill.getMessage(messageSource, messageId);
+		model.addAttribute("message" ,message);
+		model.addAttribute("isError", isError);
+	}
 	
 	/**
 	 * ユーザ情報登録の結果でメッセージを変える
