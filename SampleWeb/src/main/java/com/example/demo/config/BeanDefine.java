@@ -4,6 +4,8 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class BeanDefine {
@@ -15,11 +17,10 @@ public class BeanDefine {
 	 * 「登録されているパスワードはどのようなエンコードになっているのか」というのを
 	 * PasswordEncoderの＠Bean内容で判断する。
 	 * ※＠Beanがなければエンコードなし（ただの文字列と見なす）*/
-	//TODO　後からコメ外す
-//	@Bean
-//	PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
 	@Bean
 	Mapper mapper() {
