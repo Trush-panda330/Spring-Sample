@@ -9,7 +9,7 @@ import org.springframework.context.MessageSource;
  */
 public class AppUtill {
 	/*MessageSource getMessage(引数が３つ）
-	 * 第1引数：
+	 * 第1引数：MessageSourceを使う
 	 * 第2引数：
 	 * 第3引数：
 	 * */
