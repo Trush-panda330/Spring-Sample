@@ -55,7 +55,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(LoginForm form, Model model) {
 		var userInfo = service.searchUserById(form.getLoginId());
-		//TODO パスワードはハッシュ化したものを使用する
+		//　パスワードはハッシュ化したものを使用する
 		var isCorrectUserAuth = userInfo.isPresent() &&
 				//passwordEncoderのmatches()引数１にformからとってきた生のパス（入力されたパス）
 				//引数2にデータベースのuserInfoのハッシュ化されたパス
@@ -65,7 +65,7 @@ public class LoginController {
 			return "redirect:/menu";
 		// ユーザーとパスワードの組み合わせが合わない時
 		} else {
-			//TODO エラーメッセージはプロパティファイルで管理する
+			//エラーメッセージはプロパティファイルで管理する
 			var errorMsg = AppUtill.getMessage(messageSource,MessageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsg);
 			return "login";
